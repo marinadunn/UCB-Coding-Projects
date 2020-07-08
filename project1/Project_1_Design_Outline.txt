@@ -1,0 +1,56 @@
+Project 1 Design Outline
+Marina Dunn
+07/06/2020
+W18 Intro to Python
+UCB
+
+Goal:
+I wanted to create a project that would incorporate my love for astrophysics and my degree with a fun, interactive game. I will be creating a game called, "Journey to Bennu," based on the real-life mission OSIRIS-REx, traveling to the asteroid Bennu, collecting a sample, and returning home. The game will be based on user input, and will include a number of obstacles the player must overcome, like space debris, for the spacecraft to officially return home. It will largely be trial-and-error-based, much like how real astrophysics work is.
+
+Architecture:
+### Game will ideally have 3-5 levels to pass to reach the asteroid, then 3-5 more to return to Earth
+
+Class Background:
+	### Create a screen for player to visualize experience. Will likely include imported modules, i.e. turtle
+
+Class Player:
+	### describes the main player icon, the spcecraft
+
+	# will include an __init__ function with attributes for the icon of the spacecraft (we'll call it Rex for short), like size, speed and color
+
+	# will have a function for moving Rex
+		--> speed obstacles: too fast: thrown out of orbit, too slow: can't go anywhere
+
+Class Obstacles
+	### creates obstacles for each level, i.e. space junk (satellites), meteors, other asteroids, etc.
+
+	# will include an __init__ function to initialize attributes for the obstacles, like positions and level. For example, if level == X, then the game will produce the desired obstacle
+
+	# will have individual functions for each obstacle, all of which will have to take into account the position of the object
+
+Class Main_Game:
+	### main class for actual gameplay
+
+	# include function to start gameplay
+		--> this is where the majority of gameplay code will go. At a minimum will use the position, level, speed of object to determine what to do.
+
+	# include function/s for when spacecraft interacts with obstacle (i.e. hits asteroid and explodes)
+
+	# include a function to pause gameplay
+
+	# include a function to create a loading screen for each level
+
+	# include a function for user to choose an option if spacecraft doesn't pass obstacle and dies
+
+	# include a function to end the game
+
+
+def print_game:
+	### will need some function to display the actual game screen
+
+def pause_game:
+	### ability to pause the game
+
+while True:
+	# keep the game going until losing or winning
+
