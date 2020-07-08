@@ -1,0 +1,500 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Homework 3 - Summer Session\n",
+    "\n",
+    "* Assignment due date: Right before week 4's next live session"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 1 - For Loops\n",
+    "\n",
+    "1. Write a script that prompts the user for two words.  Print all the letters that are common to both words, in alphabetical order. The script should be case agnostic.\n",
+    "```\n",
+    "Enter one word: Home\n",
+    "Enter another word: meter\n",
+    "Letters in common: em\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from collections import Counter\n",
+    "\n",
+    "def common(word1, word2):\n",
+    "    # make lowercase\n",
+    "    word1.lower()\n",
+    "    word2.lower()\n",
+    "    \n",
+    "    # using counter dictionary, find where the 2 intersect\n",
+    "    dict = Counter(word1) & Counter(word2)\n",
+    "    if len(dict) == 0:\n",
+    "        print(-1)\n",
+    "        return\n",
+    "    \n",
+    "    # make a list of common letters then sort in alphabetical order\n",
+    "    chars = list(dict.elements())\n",
+    "    ans = sorted(chars)\n",
+    "    # join to make one string and print\n",
+    "    print (\"Letters in common: \" + ''.join(ans))\n",
+    "    \n",
+    "word1 = raw_input(\"Enter one word: \")\n",
+    "word2 = raw_input(\"Enter another word: \")\n",
+    "common(word1, word2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 2 - Comprehensions\n",
+    "\n",
+    "**2-1:** Use a comprehension to make a list of the square numbers below 100 that give a remainder of 1 when divided by 3."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "list = [i**2 for i in range(0,100) if (i**2) % 3 == 1]\n",
+    "print(list)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**2-2:** A string is defined in the code snippet below. Split it into individual words and use a comprehension to make a list of the first letters of each word in the snippet."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "text = \"I live my life a quarter mile at a time. \\\n",
+    "Nothing else matters: not the mortgage, not the store, \\\n",
+    "not my team and all their bullshit. \\\n",
+    "For those ten seconds or less, I’m free.\"\n",
+    "# the slashes just mean that the string continues onto the next line\n",
+    "# if you print the text, it will make no difference"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# create list of each word by splitting\n",
+    "new = text.split(' ')\n",
+    "# create list of first letter of each word\n",
+    "list = [i[0] for i in new]\n",
+    "print(list)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**2-3:** Given the a word, provided below, use a comprehension to make a list of all strings that can be formed by deleting exactly one character from the word.\n",
+    "\n",
+    "`word = \"Welcomed\"`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "word = \"Welcomed\"\n",
+    "# for length the entire word, prints everything up until specified place, aka 'letter', \n",
+    "# then take off a letter & print the rest after for every place in the word. Change the '1' to take off more letters\n",
+    "list = [word[:letter] + word[letter + 1:] for letter in range(len(word))]\n",
+    "print(list)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 3 - Nested functions\n",
+    "\n",
+    "**3-1:** Write a function `is_consonant` that takes a character and returns `True` if it is a consonant."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "def is_consonant(char):\n",
+    "    # makes all input lowercase\n",
+    "    char.lower()\n",
+    "    vowels = 'aeiou'\n",
+    "    # checks if input is a letter and not empty\n",
+    "    if char.isalpha() & len(char) > 0:\n",
+    "        # checks against letters that are vowels\n",
+    "        if char not in vowels:\n",
+    "            print (True)\n",
+    "            return\n",
+    "        else:\n",
+    "            print (False)\n",
+    "            return\n",
+    "    else:\n",
+    "        print(\"invalid: empty\")\n",
+    "        \n",
+    "char = raw_input(\"Enter a character: \")\n",
+    "is_consonant(char)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**3-2:** Use your function to call a new fuction `to_piglatin` that takes a word, moves all starting consonants to the end of the word, then adds *ay* to the end and returns the result. You may expect that the the input will be just one word.\n",
+    "\n",
+    "*(Optional): Have this function check whether or not the input is multiple words and return the whole sentence in pig latin. For this you may assume that a sentence always ends with a period and is always one sentence, never more than one.*"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 4 - Namespace Exercises\n",
+    "\n",
+    "**4-1:** The following script defines a list of customer orders.  Each item in the list is a tuple containing the name of the item, the number requested, and the price per item.\n",
+    "\n",
+    "Fill in just the `process_order` function below without changing any other code. This function should remove one of the elements of the order list and print a nice message about it. Finally, make sure that the final print statement correctly displays the total price for the entire list."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "('Your order: ', [('oranges', 4, 3.22), ('gummy bears', 1, 1.99), ('antacid', 1, 5.33)], 'total: ', 10.54)\n",
+      "('Your order: ', [('oranges', 4, 3.22), ('antacid', 1, 5.33)], 'total: ', 8.55)\n",
+      "('Your order: ', [('antacid', 1, 5.33)], 'total: ', 5.33)\n",
+      "('Your order: ', [], 'total: ', 0)\n",
+      "('total price: ', 12.87)\n"
+     ]
+    }
+   ],
+   "source": [
+    "total = 0 # global variable                    \n",
+    "\n",
+    "def process_order(x_list):\n",
+    "    i = len(x) - 1\n",
+    "    global total\n",
+    "    total += sum(i[2] for i in x)\n",
+    "    total = round(total,2)\n",
+    "    while i >= 0:\n",
+    "        try:\n",
+    "            i -= 1\n",
+    "            x.pop(i)\n",
+    "            print(\"Your order: \", x, \"total: \", sum(i[2] for i in x))\n",
+    "            \n",
+    "        except ValueError: \n",
+    "            pass\n",
+    "    \n",
+    "    \n",
+    "    return total\n",
+    "\n",
+    "x = [(\"oranges\", 4, 3.22),(\"gummy bears\",1,1.99),(\"sour bites\", 3, 2.33), (\"antacid\", 1, 5.33)]\n",
+    "while(len(x)>0):\n",
+    "    process_order(x)\n",
+    "print(\"total price: \", total)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "# 5 - Exceptions Exercise\n",
+    "\n",
+    "Refactor (modify) this code that attempts to compute a reciprocal so that it keeps prompting the user for a number repeatedly until the user successfully enters a valid input.  If the user enters 0, the program should print that zero does not have a reciprocal, then terminate.\n",
+    "\n",
+    "\"Refactor\" is a computer programming term that means to change or restructure code.\n",
+    "\n",
+    "The \"reciprocal\" of a fraction is obtained by interchanging the numerator and the denominator, i.e. by inverting the fraction. The reciprocal of \"x\" is \"1/x\".\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter a number: j\n",
+      "something else went wrong.\n",
+      "Enter a number: f\n",
+      "something else went wrong.\n",
+      "Enter a number: 5\n",
+      "('The reciprocal of your number is', 0.2)\n"
+     ]
+    }
+   ],
+   "source": [
+    "while True:\n",
+    "    try:\n",
+    "        x = float(input(\"Enter a number: \"))\n",
+    "        print(\"The reciprocal of your number is\", 1/x)\n",
+    "        break\n",
+    "    except ValueError:\n",
+    "        print(\"You did not enter a valid number.\")\n",
+    "        continue\n",
+    "    except ZeroDivisionError:\n",
+    "        print(\"Zero does not have a reciprocal\")\n",
+    "        break\n",
+    "    except:\n",
+    "        print(\"something else went wrong.\")\n",
+    "        continue"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 6 - Bisection Search\n",
+    "\n",
+    "**6-1:** The bisection code below finds the square root of a number. Try inputting 16 into the code to confirm it works. Next, try inputting 0.25 into the bisection search algorithm below and confirm that it doesn't work. Then correct the algorithm so that it works for all positive numbers, including decimals such as 0.25."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "enter a number: .25\n",
+      "('low =', 0.0, 'high =', 0.25)\n",
+      "('low =', 0.125, 'high =', 1.0)\n",
+      "('low =', 0.125, 'high =', 0.5625)\n",
+      "('low =', 0.34375, 'high =', 1.0)\n",
+      "('low =', 0.34375, 'high =', 0.671875)\n",
+      "('low =', 0.34375, 'high =', 0.5078125)\n",
+      "('low =', 0.42578125, 'high =', 1.0)\n",
+      "('low =', 0.42578125, 'high =', 0.712890625)\n",
+      "('low =', 0.42578125, 'high =', 0.5693359375)\n",
+      "('low =', 0.49755859375, 'high =', 1.0)\n",
+      "('low =', 0.49755859375, 'high =', 0.748779296875)\n",
+      "('low =', 0.49755859375, 'high =', 0.6231689453125)\n",
+      "('low =', 0.49755859375, 'high =', 0.56036376953125)\n",
+      "('low =', 0.49755859375, 'high =', 0.528961181640625)\n",
+      "('low =', 0.49755859375, 'high =', 0.5132598876953125)\n",
+      "('low =', 0.49755859375, 'high =', 0.5054092407226562)\n",
+      "('low =', 0.49755859375, 'high =', 0.5014839172363281)\n",
+      "('low =', 0.49952125549316406, 'high =', 1.0)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.749760627746582)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.624640941619873)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5620810985565186)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5308011770248413)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5151612162590027)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5073412358760834)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5034312456846237)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5014762505888939)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.500498753041029)\n",
+      "('low =', 0.49952125549316406, 'high =', 0.5000100042670965)\n",
+      "('low =', 0.4997656298801303, 'high =', 1.0)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.7498828149400651)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.6248242224100977)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.562294926145114)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.5310302780126221)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.5153979539463762)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.5075817919132533)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.5036737108966918)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.501719670388411)\n",
+      "('low =', 0.4997656298801303, 'high =', 0.5007426501342707)\n",
+      "('number of guesses =', 38)\n",
+      "(0.5000098849436654, 'is close to square root of', 0.25)\n"
+     ]
+    }
+   ],
+   "source": [
+    "## Bisection Search to Find a Square Root\n",
+    "\n",
+    "x = float(input(\"enter a number: \"))\n",
+    "epsilon = 0.00001\n",
+    "num_guesses = 0\n",
+    "low = 0.0\n",
+    "high = x\n",
+    "ans = (high + low)/2.0\n",
+    "\n",
+    "while abs(ans**2 - x) >= epsilon:\n",
+    "    print(\"low =\",low,\"high =\", high)\n",
+    "    num_guesses += 1\n",
+    "    if ans**2 < x:\n",
+    "        low = ans\n",
+    "        if x < 1.0:\n",
+    "            high = 1.0\n",
+    "        else:\n",
+    "            high = ans\n",
+    "    else:\n",
+    "        high = ans\n",
+    "    ans = (high + low)/2.0\n",
+    "print('number of guesses =', num_guesses)\n",
+    "print(ans, 'is close to square root of', x)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**6-2:** In your own words, why does the bisection search algorthm for finding square roots work faster on large numbers than the brute force algorithm? Write your answer below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The bisection method is using \"exhaustive enumeration\" and depends on the upper limit and step size. For a function with closed limits, find the midpoint of the interval and evaluate, essentially reducing the interval by half and continuing this until it finally converges, but could take a long time. Still, having limits and converging within those limits is faster than an incremental search. Both use the zero point of where the function intersects the x-axis."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**6-3:** In your own words, why does Newton's method for finding square roots outperform both the brute force and the bisection search algorithms? Write your answer below.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Newton's method proves better than bisection because it finds the derivative for a given function and uses the zero point as the next reference point, meaning it can find complex roots for higher-order polynomials (but doesn't work super well if derivative is almost 0). It converges quadratically, which is faster than both bisection and brute force. \n",
+    "Ultimately, neither are exact, and there are other methods that are more accurate and faster, but both usually work well enough to serve the purpose."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Bonus question (20 pts)! - Chess board exercise "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You place a pawn at the top left corner of an n-by-n chess board, labeled (0,0).  For each move, you have a choice: move the pawn down a single space, or move the pawn down one space and right one space.  That is, if the pawn is at position (i,j), you can move the pawn to (i+1,j) or (i+1, j+1).\n",
+    "\n",
+    "Ask the user for the size of a chessboard, n.  Find the number of different paths the pawn could take to reach each position on the chess board.  For example, there are two different paths the pawn can take to reach (2,1): \n",
+    "\n",
+    "* (0,0) -> (1,0) -> (2,1)\n",
+    "* (0,0) -> (1,1) -> (2,1)\n",
+    "\n",
+    "print the board with the number of ways to reach each square labeled as shown below.\n",
+    "\n",
+    "Enter a size: 3\n",
+    "```\n",
+    "1 0 0\n",
+    "1 1 0\n",
+    "1 2 1\n",
+    "```\n",
+    "\n",
+    "Below is the code to take in a board size input. Build your code from here."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "from __future__ import print_function\n",
+    "\n",
+    "def chessboard(n):\n",
+    "    if n % 2 == 0:\n",
+    "        # create matrix\n",
+    "        x = np.zeros((n,n), dtype = int)\n",
+    "        \n",
+    "        x[1::2, ::2] = 1\n",
+    "        x[::2, 1::2] = 1\n",
+    "    \n",
+    "        # add spaces to visially look like board\n",
+    "        for i in range(n): \n",
+    "            for j in range(n): \n",
+    "                print(x[i][j], end = \" \")  \n",
+    "            print()  \n",
+    "    else:\n",
+    "        print(\"choose even number\")\n",
+    "        pass\n",
+    "    \n",
+    "n = int(input(\"Enter a board size: \"))\n",
+    "chessboard(n)\n",
+    "\n",
+    "## not finished, need to make for particular paths"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Please submit feedback for any and all homeworks!\n",
+    "\n",
+    "http://goo.gl/forms/74yCiQTf6k"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.16"
+  },
+  "name": "_merged"
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

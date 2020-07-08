@@ -1,0 +1,14 @@
+GitHub Exercise
+
+This is a simple exercise designed to give you practice using GitHub. Additionally the following questions are meant to stimulate you to think about how innovation arises and propagates. Type your answers and commit them to your repository as outlined in the “Completing Your First Exercise With Git Reading Card” document. Be ready to share these answers <briefly> in the discussion section.
+
+* Bill Gates or Gary Kidall? Thomas Edison or Nicola Tesla? Rosalind Franklin or Watson and Crick? Steve(Jobs or Wozniak)?
+
+Answer: Kildall, Tesla, Franklin!!!, Wozniak. The true masterminds behind great science and technology who often get overshadowed
+because someone else was better at 'patenting ideas' rather than the actual work. 
+
+* How might modern data science be disruptive to your industry? 
+
+Answer: In my industry specifically, the tech industry, many companies manipulate data science as a way to make a profit rather
+than being concerned with things like privacy or transparency. They are data-driven, altering their motives to help them 
+stay on top, while I intead admire companies that are data-influenced. They use data to help innovate but still respect boundaries.

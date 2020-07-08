@@ -1,0 +1,647 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Homework 2 - Summer Session\n",
+    "\n",
+    "### Assignment due date: 24 hours before the Week 3 Live Session.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Section 1 text and arithmetic\n",
+    "\n",
+    "In the first section you will create simple text and arithmetic scripts. These tasks are designed to give you an introduction to input/output and text formating. Each of these should be saved as a separate .py script and each should labeled so that it is clear which problem each script is for. Make sure you run your .py scripts from the command line to ensure they run successfully before submitting them.\n",
+    "\n",
+    "When you sync your repository to GitHub, we expect that you will have one script for each of the problems in section 1. Section 2 (further below) can be completed in this Jupter Notebook.\n",
+    "\n",
+    "### 1-1. Tip Calculator\n",
+    "\n",
+    "Below, you can see the script we wrote to compute the tip for a meal.  Fix it so that it works correctly.  Save your result as the file tip.py."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter the price of a meal: 10\n",
+      "('A %16 tip would be ', 1.6)\n",
+      "('The total including tip would be ', 11.6)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "'\\n#Optional if wanting to do user-desired tip:\\n\\ndef tip_calc(price, tip):\\n    new_tip = price * tip\\n    total = price + new_tip\\n    print(\"The tip would be \", new_tip)\\n    print(\"The total including tip would be \", total)\\n    \\nprice = float(input(\"Enter the price of a meal: \"))\\ntip = float(input(\"Enter the tip % of a meal: \")) / 100\\n\\ntip_calc(price, tip)\\n'"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "def tip_calc(price):\n",
+    "    # has a set tip amount. if you would like to choose, see code below\n",
+    "    tip = price * .16\n",
+    "    # updated total\n",
+    "    total = price + tip\n",
+    "    print(\"A %16 tip would be \", tip)\n",
+    "    print(\"The total including tip would be \", total)\n",
+    "    # does not include tax\n",
+    "\n",
+    "# takes in price and calls tip calculator function\n",
+    "price = float(input(\"Enter the price of a meal: \"))\n",
+    "tip_calc(price)\n",
+    "\n",
+    "\"\"\"\n",
+    "Optional if wanting to do user-desired tip:\n",
+    "\n",
+    "def tip_calc(price, tip):\n",
+    "    new_tip = price * tip\n",
+    "    total = price + new_tip\n",
+    "    print(\"The tip would be \", new_tip)\n",
+    "    print(\"The total including tip would be \", total)\n",
+    "    \n",
+    "price = float(input(\"Enter the price of a meal: \"))\n",
+    "tip = float(input(\"Enter the tip % of a meal: \")) / 100\n",
+    "\n",
+    "tip_calc(price, tip)\n",
+    "\"\"\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "### 1-2. Pig Latin Translator\n",
+    "\n",
+    "Write a script that translates names into a (simplified) Pig Latin. Have your script ask the user for his or her name. Move the first letter to the end of the name and add the letters \"ay\".  Make sure that only the first letter of your output is capitalized. Your script should re-create the following behavior exactly:\n",
+    "\n",
+    "** Hint: Be sure that your script can handle one, two or three names. This will likely involve a loop.**\n",
+    "\n",
+    "```\n",
+    "Enter your name: Paul Laskowski\n",
+    "Aulpay Askowskilay\n",
+    "```\n",
+    "\n",
+    "Save your script as **piglatin.py**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter your name: Paul Laskowski\n",
+      "Aulpay Askowskilay\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "def pig(name):\n",
+    "    vowels = \"aeiou\"\n",
+    "    # make all letters lowercase and split string at a space\n",
+    "    name = name.lower().split(' ')\n",
+    "    list = []\n",
+    "    for i in name:\n",
+    "        # define the first letter of the name, which decides how to apply Pig Latin rules\n",
+    "        first = i[0]\n",
+    "        # if the first letter in the name is a vowel, drop it and add ay at the end\n",
+    "        if len(name) > 0 and first in vowels:\n",
+    "            new = i[1:] + 'ay'\n",
+    "            # add name to list\n",
+    "            list.append(new)\n",
+    "        # if not, put the first letter at the end of the name, then add ay\n",
+    "        else:\n",
+    "            new = i[1:] + first + 'ay'\n",
+    "            # add name to list\n",
+    "            list.append(new)\n",
+    "    # capitalize only the first letter of each part of the name\n",
+    "    list = [i.capitalize() for i in list]\n",
+    "    # print the entire name\n",
+    "    print \" \".join(list)\n",
+    "    \n",
+    "# takes in name of any length and calls Pig Latin function\n",
+    "name = raw_input(\"Enter your name: \")\n",
+    "pig(name)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "## 1-3. Matrix Inverter\n",
+    "\n",
+    "One place tuples are convenient is in the representation of matrices.  Label the values in a 2x2 matrix as follows:\n",
+    "$$\n",
+    "\\begin{bmatrix}\n",
+    "    a       & b  \\\\\n",
+    "    c       & d\n",
+    "\\end{bmatrix}\n",
+    "$$\n",
+    "Write a script, matrix_fun.py, that asks the user for a text string including the four values, a, b, c, and d, separated by spaces.  You can use the `split()` method on the string to create a list of the four values in order.\n",
+    "\n",
+    "Create a tuple that represents each row, then create a tuple that contains those two tuples.  It should have the form `((a, b), (c, d))`.  Print this representation.\n",
+    "\n",
+    "The inverse of the matrix above is given by the formula,\n",
+    "\n",
+    "$$\n",
+    "\\frac{1}{ad-bc} \\begin{bmatrix}\n",
+    "    d       & -b  \\\\\n",
+    "    -c       & a\n",
+    "\\end{bmatrix}\n",
+    "$$\n",
+    "\n",
+    "Compute the inverse of the given matrix, again represented as nested tuples, and print this representation. For example:\n",
+    "\n",
+    "\n",
+    "input: 1 2 3 4\n",
+    "\n",
+    "output:\n",
+    "```\n",
+    "matrix: ((1.0, 2.0), (3.0, 4.0))\n",
+    "inverse: ((-2.0, 1.0), (1.5, -0.5))\n",
+    "```\n",
+    "\n",
+    ">**Hint: For this question your code should simply apply the inversion formula. The formula requires that you get the product of a constant and a matrix. To do that,  you should multiply the constant by each element of the 2x2 matrix as shown in the formula.  For the purpose of this exercise, there is no need to check invertibility of the matrix unless you want bonus points.**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter 4 values: 1 2 3 4\n",
+      "matrix:  ((1.0, 2.0), (3.0, 4.0))\n",
+      "inverse:  ((-2.0, 1.0), (1.5, -0.5))\n"
+     ]
+    }
+   ],
+   "source": [
+    "# matrix_fun.py\n",
+    "# I'm importing the __future__ module, which I learned about through work, to have a more \n",
+    "#updated version of the print() fxn so I can specify an end & separator\n",
+    "\n",
+    "from __future__ import print_function\n",
+    "\n",
+    "def inverse_matrix(text):\n",
+    "    # create a list of the values by splitting, then change all to floats\n",
+    "    text = text.split(\" \")\n",
+    "    textf = [float(item) for item in text]\n",
+    "    \n",
+    "    a = float(textf[0])\n",
+    "    b = float(textf[1])\n",
+    "    c = float(textf[2])\n",
+    "    d = float(textf[3])\n",
+    "    # the constant the matrix will be multiplied by\n",
+    "    scalar = (a*d-b*c)**-1\n",
+    "    \n",
+    "    # create tuples for inices 0-2, and 2-4, then make a tuple of those\n",
+    "    for num in textf:\n",
+    "        tup1 = [tuple(textf[:2])]\n",
+    "        tup2 = [tuple(textf[2:])]\n",
+    "        matrix = tuple(tup1 + tup2)\n",
+    "    print (\"matrix: \", matrix)\n",
+    "\n",
+    "    for i in matrix:\n",
+    "        rtup1 = [tuple([d,-b])]\n",
+    "        rtup2 = [tuple([-c, a])]\n",
+    "        reversed = tuple(rtup1 + rtup2)\n",
+    "    #print (reversed)\n",
+    "    \n",
+    "    list = [d,-b,-c, a]\n",
+    "    \n",
+    "    new = [scalar * i for i in list]\n",
+    "    #print (new)\n",
+    "    \n",
+    "    new_tup1 = [tuple(new[:2])]\n",
+    "    new_tup2 = [tuple(new[2:])]\n",
+    "    inverse = tuple(new_tup1 + new_tup2)\n",
+    "    print (\"inverse: \", inverse)\n",
+    "\n",
+    "\n",
+    "# read in 4 random values, then call inverse function\n",
+    "text = raw_input(\"Enter 4 values: \")\n",
+    "inverse_matrix(text)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Section 2 - Flow control \n",
+    "\n",
+    "For these tasks you answer the questions inside this ipython notebook file and submit it. Questions can be labelled accordingly.\n",
+    "\n",
+    "\n",
+    "\n",
+    "## 2-1. If statements\n",
+    "\n",
+    "The mythical island nation of Laskoatu has a rather simple tax code.  The first \\$1000 of income is taxed at 5%. The next \\$1000 is taxed at 10\\%.  Any income beyond the first \\$2000 is taxed at 15\\%.  Complete the following script so that it asks the user for his or her income and outputs the amount of tax owed."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Please enter your income:2500\n",
+      "375.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "def tax(income):\n",
+    "    # if user falls under first cut-off\n",
+    "    if 0 <= income and income <= 1000:\n",
+    "        tax = income * .05\n",
+    "    # if user falls under second cut-off\n",
+    "    elif 1000 < income < 2000:\n",
+    "        tax = (income - (1000*.05)) * .10\n",
+    "    # if user has income higher than cut-offs\n",
+    "    elif income >= 2000:\n",
+    "        tax = income * .15\n",
+    "    else:\n",
+    "        pass\n",
+    "    print (tax)\n",
+    "\n",
+    "# asks user for income then calls tax calculator function\n",
+    "income = int(input(\"Please enter your income:\"))\n",
+    "tax(income)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2-2 While loops\n",
+    "Write a script that prompts the user for his or her name. Using a while loop that counts downwards, print the name with the letters reversed. You may use `s.lower()` and `s.upper()` to change a string `s` to lowercase and uppercase letters.\n",
+    "```\n",
+    "Enter your name: Paul \n",
+    "Luap\n",
+    "```\n",
+    "If the name is the same forward and backwards, print \"Palindrome!\" on the next line.\n",
+    "```\n",
+    "Enter your name: Ana \n",
+    "Ana \n",
+    "Palindrome!\n",
+    "```\n",
+    "\n",
+    ">**Hint: You can treat a single and double word name as a single string, or if you want to get fancy reverse each name independantly and test each to see if it is a palandrome."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter your name: Hannah\n",
+      "hannah\n",
+      "Palindrome!\n"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "def palindrome(name):\n",
+    "    # makes all letters in string lowercase\n",
+    "    name = name.lower()\n",
+    "    print (name)\n",
+    "    first = 0\n",
+    "    last = len(name)-1\n",
+    "    # checks if first and last elements in name are equal, then continues throughout name until done with comparison\n",
+    "    while first < last:\n",
+    "        if name[first] == name[last]:\n",
+    "            first = first + 1\n",
+    "            last = last - 1\n",
+    "            print(\"Palindrome!\")\n",
+    "            break\n",
+    "        else:\n",
+    "            print(\"Not a palindrome\")\n",
+    "            break\n",
+    "# asks for name, then calls palindrome-checking function\n",
+    "name = raw_input(\"Enter your name: \")\n",
+    "palindrome(name)\n",
+    "\n",
+    "# Easier way: use the reverse function to check if the string is equal to the reversed string"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2-3 Create a to-do list using a dictionary of lists\n",
+    "\n",
+    "\n",
+    "Your program should have the following elements:\n",
+    "\n",
+    "1. Empty dictionary to store information\n",
+    "\n",
+    "2. Key for each day of the week\n",
+    "\n",
+    "3. Each key has a list value that stores items\n",
+    "\n",
+    "4. User is prompted to add to or view to-do list\n",
+    "\n",
+    "5. User can type \"add\" program will ask what day and add it correctly\n",
+    "\n",
+    "6. User can type \"get\" and the program will ask for the day and print the values\n",
+    "\n",
+    ">7. User can type \"quit\" to exit the loop \n",
+    "\n",
+    "\n",
+    "Example:\n",
+    "```\n",
+    "What would you like to do?\n",
+    "add\n",
+    "What day?\n",
+    "Friday\n",
+    "What would you like to add to Friday's to-do list?\n",
+    "practice clarinet\n",
+    "What would you like to do?\n",
+    "get\n",
+    "What day?\n",
+    "Friday\n",
+    "You have to practice clarinet.\n",
+    "What would you like to do?\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Would you like to view/add to your to-do list? yes\n",
+      "yes\n",
+      "What would you like to do? add\n",
+      "What day? Monday\n",
+      "What would you like to add to Monday's to-do list? cleaning\n",
+      "Monday: cleaning\n",
+      "What would you like to do? get\n",
+      "What day? Monday\n",
+      "activities:  cleaning\n",
+      "What would you like to do? quit\n"
+     ]
+    }
+   ],
+   "source": [
+    "# creating an empty dictionary to start with (step 1)\n",
+    "dict = {}\n",
+    "# key for actions to have program perform (step 2)\n",
+    "dict[\"actions\"] = ['get', 'add']\n",
+    "# key for days of the week\n",
+    "dict[\"days\"] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']\n",
+    "# key for various daily activities to be added, stores items (step 3)\n",
+    "dict[\"activities\"] = {}\n",
+    "\n",
+    "#print (dict.keys())\n",
+    "#print (dict.values())\n",
+    "\n",
+    "def todo(action):\n",
+    "    \n",
+    "    if action in dict[\"actions\"]:\n",
+    "        day = raw_input(\"What day? \")\n",
+    "        #print (day)\n",
+    "        \n",
+    "        if day in dict[\"days\"]:\n",
+    "            # adding 'get' option (step 5)\n",
+    "            if action == 'get':\n",
+    "                print(\"activities: \", dict[\"activities\"])\n",
+    "            # adding 'add' option (step 6)    \n",
+    "            elif action == 'add':\n",
+    "                item = raw_input(\"What would you like to add to \" + day + \"'s to-do list? \")\n",
+    "                if item in dict[\"activities\"]:\n",
+    "                    print (\"You also have to do this activity: \" + dict[\"activities\"])\n",
+    "                else:\n",
+    "                    dict.update({\"activities\": item})\n",
+    "                    print (day + ': ' + dict[\"activities\"])\n",
+    "            else:\n",
+    "                pass\n",
+    "            \n",
+    "        else:\n",
+    "            print(\"invalid: please choose a day Monday-Sunday.\")\n",
+    "            \n",
+    "    else:\n",
+    "        print(\"invalid: choose different action.\")\n",
+    "\n",
+    "# creating prompt to initiate to-do list (step 4)\n",
+    "prompt = raw_input(\"Would you like to view/add to your to-do list? \")\n",
+    "print(prompt)\n",
+    "if prompt == 'yes':\n",
+    "    while True:\n",
+    "        action = raw_input(\"What would you like to do? \")\n",
+    "        # adding 'quit' option (step 7)\n",
+    "        if action == \"quit\":\n",
+    "            break\n",
+    "        else:\n",
+    "            todo(action)\n",
+    "else:\n",
+    "    pass\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2-4 Fibonacci\n",
+    "\n",
+    "The Fibonacci numbers begin with 1, 1.  After the first two numbers, each number is the sum of the previous two. 1 + 1 = 2, so 2 is the third number. Then 1 + 2 = 3, so 3 is the next one, and so on. Write a script that prompts the user for a number, then prints all the Fibonacci numbers that are less than or equal to the input, in order.\n",
+    "\n",
+    "```\n",
+    "Enter a number: 15\n",
+    "1 1 2 3 5 8 13\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter a number: 15\n",
+      "[0, 1, 1, 2, 3, 5, 8, 13]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# will use recursion method\n",
+    "\n",
+    "def fibonacci(n):\n",
+    "    if n == 0:\n",
+    "        # first fibonacci number\n",
+    "        return 0\n",
+    "    elif n == 1:\n",
+    "        # second fibonacci number\n",
+    "        return 1\n",
+    "    else:\n",
+    "        # continues until unable to do fibonacci function anymore\n",
+    "        return (fibonacci(n-1) + fibonacci(n-2))\n",
+    "\n",
+    "# takes in user-defined number, then calls fibonacci function if positive      \n",
+    "n = int(input(\"Enter a number: \"))\n",
+    "list = []\n",
+    "if n < 0:\n",
+    "    print(\"invalid, enter positive number\")\n",
+    "else:\n",
+    "    for i in range(0,n):\n",
+    "        ans = fibonacci(i)\n",
+    "        # updates list with fibonacci values\n",
+    "        list.append(ans)\n",
+    "    # shows only values less than the user-defined number\n",
+    "    res = [list[j] for j, val in enumerate(list) if val < n] \n",
+    "    print (res)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 2-5 Pascal's Triangle\n",
+    "\n",
+    "Pascal's triangle is a triangle of numbers that is computed as follows.  The first row contains a 1.  Each row after that begins and ends with a 1, and every other number is the sum of the two numbers above it.  The first six rows of Pascal's triangle are shown below.\n",
+    "```\n",
+    "      1\n",
+    "     1 1\n",
+    "    1 2 1\n",
+    "  1  3 3  1\n",
+    " 1 4  6  4 1\n",
+    "1 5 10 10 5 1\n",
+    "```\n",
+    "Write a script to compute the *n*th row of Pascal's triangle."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter number of rows: 8\n",
+      "                              1 \n",
+      "                           1      1 \n",
+      "                        1      2      1 \n",
+      "                     1      3      3      1 \n",
+      "                  1      4      6      4      1 \n",
+      "               1      5     10     10      5      1 \n",
+      "            1      6     15     20     15      6      1 \n",
+      "         1      7     21     35     35     21      7      1 \n"
+     ]
+    }
+   ],
+   "source": [
+    "# I'm importing the __future__ module, which I learned about through work, to have a more \n",
+    "#updated version of the print() fxn so I can specify an end & separator\n",
+    "\n",
+    "from __future__ import print_function\n",
+    "\n",
+    "list = []\n",
+    "def pascal(n):\n",
+    "    if n > 0:\n",
+    "        for line in range(n):\n",
+    "            list.append([])\n",
+    "            # first element will always be 1\n",
+    "            list[line].append(1)\n",
+    "            \n",
+    "            for i in range(1, line):\n",
+    "                list[line].append(list[line-1][i-1] + list[line-1][i])\n",
+    "            if n != 0:\n",
+    "                list[line].append(1)\n",
+    "                \n",
+    "            # formats output to be an actual triangle   \n",
+    "            print(\"   \" * (n - line), end = \" \", sep = \" \")\n",
+    "\n",
+    "            for i in range(0, line+1):\n",
+    "                # formats output to be an actual triangle\n",
+    "                print('{0:6}'.format(list[line][i]), end = \" \", sep = \" \")\n",
+    "            print()\n",
+    "            \n",
+    "    # need positive number of rows\n",
+    "    else:\n",
+    "        print(\"invalid, try again\")\n",
+    "\n",
+    "# takes in user-defined number of rows then calls function to create pascal's triangle for that many rows\n",
+    "n = int(input(\"Enter number of rows: \"))\n",
+    "pascal(n)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Please submit feedback for any and all homeworks!\n",
+    "\n",
+    "http://goo.gl/forms/74yCiQTf6k"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.16"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}
