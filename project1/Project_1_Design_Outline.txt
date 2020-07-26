@@ -14,7 +14,7 @@ Class Background:
 	### Create a screen for player to visualize experience. Will likely include imported modules, i.e. turtle
 
 Class Player:
-	### describes the main player icon, the spcecraft
+	### describes the main player icon, the spacecraft
 
 	# will include an __init__ function with attributes for the icon of the spacecraft (we'll call it Rex for short), like size, speed and color
 
